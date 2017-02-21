@@ -1,0 +1,32 @@
+<h2>{{post.post_title}}</h2>
+<br />
+<p>{{post.post_body}}</p>
+<br />
+<p>Posted at: {{post.pub_date}}</p>
+
+
+
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url 'blog:post_comment' post.id %}" method="POST">
+	{% csrf_token %}
+    <label for="comment_poster">Name: </label>
+    <input type="text" placeholder="Name"  name="comment_poster"/> <br /> <br />
+    <label for="comment_body">What do you have to say?</label>
+    <textarea placeholder="Enter a comment here..."  name="comment_body"> </textarea> <br /> <br />
+    <input type="submit"  value="Post Comment"/>
+</form>
+
+<h2>comment feed</h2>
+{% if recent_comments %}
+    {% for c in recent_comments %}
+		<div>
+			<p><b>{{c.comment_body}}</b></p>
+            <p>{{c.comment_poster_name}}</p>
+		</div>
+    {% endfor %}
+{% endif %}
+
+

@@ -18,6 +18,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    comment_poster_name = models.CharField(max_length=200)
     comment_body = models.TextField()
     pub_date = models.DateField('date published')
 

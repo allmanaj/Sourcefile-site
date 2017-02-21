@@ -2,9 +2,10 @@
 	<ul>
 		{% for post in latest_post_list %}
         <li>
-            <a href="/blog/{{post.id}}">{{post.post_title}}</a>
+            <a href="{% url 'blog:detail' post_url%}">{{post.post_title}}</a>
             <p>{{post.post_body|truncatechars:35}}</p>
         </li>
         {% endfor %}
 	</ul>
 {% endif %}
+

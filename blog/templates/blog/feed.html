@@ -1,0 +1,10 @@
+{% if latest_post_list %}
+	<ul>
+		{% for post in latest_post_list %}
+        <li>
+            <a href="/blog/{{post.id}}">{{post.post_title}}</a>
+            <p>{{post.post_body|truncatechars:35}}</p>
+        </li>
+        {% endfor %}
+	</ul>
+{% endif %}

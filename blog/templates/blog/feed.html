@@ -9,13 +9,19 @@
     <body>
         <div class="content container">
             {% if latest_post_list %}
-            {% for post in latest_post_list %}
-            <div class="block">
-                <h1><a href="{% url 'blog:detail' post.id%}">{{post.post_title}}</a></h1>
-                <p>{{post.post_body|truncatechars:35}}</p>
-                <hr />
-            </div>
-            {% endfor %}
+                {% for post in latest_post_list %}
+                    {% if forloop.counter|divisibleby:2 %}
+                    	<div class="row">
+                    {% endif %}
+                            <div class="col" style='width: 300px;'>
+                                <h1><a href="{% url 'blog:detail' post.id%}">{{post.post_title}}</a></h1>
+                                <p>{{post.post_body|truncatechars:35}}</p>
+                                <hr />
+                            </div>
+                    {% if forloop.counter|divisibleby:3 %}
+            			</div>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
         </div>
     </body>

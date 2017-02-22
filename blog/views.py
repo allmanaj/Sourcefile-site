@@ -8,7 +8,7 @@ from .models import Comment, Post
 
 # Create your views here.
 def detail(request, post_id):
-    post=get_object_or_404(Post, pk=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     recent_comments = Comment.objects.filter(post=post_id)
     return render(request, 'blog/detail.html', {'post':post, 'recent_comments': recent_comments})
 
@@ -26,3 +26,15 @@ def post_comment(request, post_id):
     c.save()
 
     return HttpResponseRedirect(reverse('blog:detail', args=(post_id, )))
+
+def new(request):
+    return render(request, 'blog/new.html', {})
+
+def new_post(request):
+    title = request.POST['title']
+    body = request.POST['body']
+
+    p = Post(post_title=title, post_body=body, pub_date=timezone.now())
+    p.save()
+
+    return HttpResponseRedirect(reverse('blog:detail', args=(p.pk, )))
